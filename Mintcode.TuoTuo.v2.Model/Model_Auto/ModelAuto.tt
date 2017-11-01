@@ -1,0 +1,164 @@
+﻿<#@ template language="C#" hostSpecific="true" #>
+<#@include file="$(SolutionDir)\Mintcode.TuoTuo.v2.Model\Model_Auto\MintcodeSqlManager.ttinclude"#> 
+<#@include file="$(SolutionDir)\Mintcode.TuoTuo.v2.Model\Model_Auto\TemplateFileManagerV2.1.ttinclude"#>
+<#@import namespace="System.IO"#> 
+<#@ output extension=".cs" #>
+ <#
+          //T4模板管理
+          var manager = TemplateFileManager.Create(this);
+	      manager.CanOverrideExistingFile=true;   
+          //数据库管理
+	      T4HelperTool t4 = new T4HelperTool();
+          //MySql的操作
+          T4HelperTool.IDbfactory sqlDbfactory= new T4HelperTool.MySqlDbfactory(t4.CreateDbBase(Host.ResolvePath(@"../../Mintcode.TuoTuo.v2.Owin/Web.config"),"strTuotuomySql"));
+          IList<T4HelperTool.DbTable> list = t4.GetTableStructFromDatabase( sqlDbfactory,"tuotuo.v2");
+
+        foreach(T4HelperTool.DbTable entity in list)
+	        {    
+		          manager.StartNewFile(entity.TableName.ToUpper()+".cs");
+
+                 #region 指定输出CS文件内容
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Mintcode.Zeus.Public.Data;
+namespace Mintcode.TuoTuo.v2.Model
+
+{
+    // 类描述：<#= entity.TableComment #>
+    public partial class <#= entity.TableName.ToUpper() #>:ModelBase
+    {
+
+         <#
+         foreach(T4HelperTool.DbColumn Column in entity.Column)
+         {
+            string name =Column.ColumnName;
+            string type = Column.CSharpType;
+            string columnDefault= Column.ColumnDefault;
+            string defaultValue = string.Empty;
+            string Attribute = "[Column]";
+			List<string> ValidateAttributes=new List<string>();
+			string ColumnChineseName=string.IsNullOrEmpty(Column.ColumnComment)?Column.ColumnName:Column.ColumnComment.Split(',').First();
+			
+            if(!string.IsNullOrEmpty(Column.ColumnDefault))
+            {
+                //此处还需要其他类型的验证(需要优化)
+                if(Column.CSharpType.Contains("int") || Column.CSharpType.Contains("long") || Column.CSharpType.Contains("double"))
+                {
+                    defaultValue = " = "+Column.ColumnDefault;
+                }
+               else if(Column.CSharpType.Contains("DateTime"))
+                {
+					if(Column.ColumnDefault.Contains("CURRENT_TIMESTAMP"))
+					{
+						defaultValue = " = "+"DateTime.Now";
+					}
+                    
+                }
+				else if(Column.CSharpType.Contains("decimal"))
+				{
+					defaultValue = " = "+Column.ColumnDefault+"m";
+				}
+				else if(Column.CSharpType.Contains("bool"))
+				{
+					if(Column.ColumnDefault=="b'1'")
+					{
+						defaultValue = " = "+"true";
+					}
+					else if(Column.ColumnDefault=="b'0'")
+					{
+						defaultValue = " = "+"false";
+					}
+					else 
+					{
+						defaultValue = " = "+Column.ColumnDefault;
+					}
+				}
+                else
+                {
+                       defaultValue = " = \""+Column.ColumnDefault+"\"";
+                }
+            }
+            if(Column.IsPrimaryKey)
+            {
+                  if(Column.IsIdentity)
+                  {
+                    Attribute = "[Id(true)]";
+                  }
+                  else
+                  {
+					
+                    Attribute = "[Id]";
+                  }
+            }
+            else
+            {				
+                if(Column.IsIdentity)
+                {
+                   Attribute = "[Column(true)]";
+                }
+            }
+			if(!(Column.IsPrimaryKey && Column.IsIdentity))
+            {
+				//if(!(Column.IsNullable) && Column.CSharpType.Contains("string"))
+                //{
+				//	ValidateAttributes.Add("[RequiredValidate(ErrorMessage=\""+ColumnChineseName+"不能为空\")]");
+				//}
+				//if(!Column.CommonType.IsValueType && Column.CSharpType.Contains("string") )
+                //{
+				//	ValidateAttributes.Add("[StringLengthValidate(MaxmumLength="+(int)Column.ByteLength+",ErrorMessage=\""+ColumnChineseName+"长度不能超过"+Column.ByteLength+"\")]");
+				//}
+			}
+
+
+         #>
+           
+         #region  属性描述：<#= Regex.Replace(Column.ColumnComment,@"\s"," ")#>
+         
+		 /// <summary>
+         /// <#=  Regex.Replace(Column.ColumnComment,@"\s"," ")  #>
+         /// </summary>
+         private <#= Column.CSharpType#>  _<#=Column.ColumnName#><#=defaultValue#>;
+         
+		 /// <summary>
+         /// <#= Regex.Replace(Column.ColumnComment,@"\s"," ")#>
+         /// </summary>
+         <#= Attribute#>
+		 <# 
+		foreach(var ValidateAttribute in ValidateAttributes )
+		 {#>
+<#= ValidateAttribute#>
+		 <#} #>
+public <#= Column.CSharpType#> <#=Column.ColumnName#> 
+         {
+           get
+            {
+                 return  _<#=Column.ColumnName#> ;
+            }
+            set
+            {
+                Fields.Add("<#=Column.ColumnName#>");   
+                 _<#=Column.ColumnName#>  = value;
+            }
+         }     
+        
+         #endregion          
+       <#
+        }
+#>
+
+    }
+}
+
+
+
+	<# 
+		#endregion
+
+	     manager.EndBlock();
+}
+	manager.Process(true); 
+	 #>

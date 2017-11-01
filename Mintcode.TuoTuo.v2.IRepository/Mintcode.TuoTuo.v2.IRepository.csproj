@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04DA3812-7C40-4BD0-AEF6-B6C27F7B1DA7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.IRepository</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.IRepository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IBacklogRepository.cs" />
+    <Compile Include="IProjectRepository.cs" />
+    <Compile Include="IScrumRepository.cs" />
+    <Compile Include="ITaskRepository.cs" />
+    <Compile Include="ITeamRepository.cs" />
+    <Compile Include="ITimeSheetRepository.cs" />
+    <Compile Include="Models\BacklogInfoModel.cs" />
+    <Compile Include="Models\BacklogRepoModel.cs" />
+    <Compile Include="Models\CreateTimeSheetTaskModel.cs" />
+    <Compile Include="Models\CurrentReleaseAndSprint.cs" />
+    <Compile Include="Models\ProjectInfoModel.cs" />
+    <Compile Include="Models\ProjectMemberModel.cs" />
+    <Compile Include="Models\Redis\AttachmentUploadModel.cs" />
+    <Compile Include="Models\Redis\RelationAccountModel.cs" />
+    <Compile Include="Models\ProjectRepoModel.cs" />
+    <Compile Include="Models\ReleaseInfoModel.cs" />
+    <Compile Include="Models\ReleaseRepoModel.cs" />
+    <Compile Include="Models\SearchTeamAndTeamMemberModel.cs" />
+    <Compile Include="Models\SprintInfoModel.cs" />
+    <Compile Include="Models\TaskInfoModel.cs" />
+    <Compile Include="Models\TaskLogModel.cs" />
+    <Compile Include="Models\TaskRepoModel.cs" />
+    <Compile Include="Models\TeamInfoModel.cs" />
+    <Compile Include="Models\TeamMemberModel.cs" />
+    <Compile Include="Models\TeamRepoModel.cs" />
+    <Compile Include="Models\ThirdPartyInfoModel.cs" />
+    <Compile Include="Models\TimeSheetInfoModel.cs" />
+    <Compile Include="Models\TimeSheetQueryModel.cs" />
+    <Compile Include="Models\TimeSheetRepoModel.cs" />
+    <Compile Include="Models\TimeSheetReportModel.cs" />
+    <Compile Include="Models\UserInfoModel.cs" />
+    <Compile Include="Redis\IAttachmentUploadRepository.cs" />
+    <Compile Include="Redis\IRefreshTokenRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="Models\UserRepoModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Redis\IRelationAccountRepository.cs" />
+    <Compile Include="Models\TimeSheetTaskModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Common\Mintcode.TuoTuo.v2.Common.csproj">
+      <Project>{2c804388-3ca5-4c30-8c77-dbc60ad1434b}</Project>
+      <Name>Mintcode.TuoTuo.v2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Model\Mintcode.TuoTuo.v2.Model.csproj">
+      <Project>{01f41897-d330-4195-8e80-25b18b8eadc7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.Zeus.Public.Data\Mintcode.Zeus.Public.Data.csproj">
+      <Project>{46a471c9-4abe-4897-8234-352a698838e3}</Project>
+      <Name>Mintcode.Zeus.Public.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

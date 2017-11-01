@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1B6A392-D8FC-491C-A585-94F8DC63BFC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.BLL</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLLBase\BLLBase.cs" />
+    <Compile Include="BLL_Auto\BLLAuto.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_BACKLOG_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_PROJECT_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_PROJECT_MEMBER_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_RELEASE_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_RELEASE_SPRINT_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_ROLE_ALIAS_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_ROLE_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_TASK_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_TASK_LOG_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_TEAM_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_TEAM_MEMBER_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_THIRD_PARTY_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_TIME_SHEET_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_TIME_SHEET_TASK_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL_Auto\T_USER_BLL.cs">
+      <DependentUpon>BLLAuto.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="T_BACKLOG_BLL.cs" />
+    <Compile Include="T_PROJECT_BLL.cs" />
+    <Compile Include="T_PROJECT_MEMBER_BLL.cs" />
+    <Compile Include="T_RELEASE_BLL.cs" />
+    <Compile Include="T_RELEASE_SPRINT_BLL.cs" />
+    <Compile Include="T_TASK_BLL.cs" />
+    <Compile Include="T_TEAM_BLL.cs" />
+    <Compile Include="T_TEAM_MEMBER_BLL.cs" />
+    <Compile Include="T_TIME_SHEET_TASK_BLL.cs" />
+    <Compile Include="T_USER_BLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="BLL_Auto\BLLAuto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BLLAuto.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Common\Mintcode.TuoTuo.v2.Common.csproj">
+      <Project>{2c804388-3ca5-4c30-8c77-dbc60ad1434b}</Project>
+      <Name>Mintcode.TuoTuo.v2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Model\Mintcode.TuoTuo.v2.Model.csproj">
+      <Project>{01f41897-d330-4195-8e80-25b18b8eadc7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.Zeus.Public.Data\Mintcode.Zeus.Public.Data.csproj">
+      <Project>{46a471c9-4abe-4897-8234-352a698838e3}</Project>
+      <Name>Mintcode.Zeus.Public.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,54 @@
+﻿<#@ template language="C#" hostSpecific="true" #>
+<#@ import namespace="System"#>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Configuration"#> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="System.xml" #>
+<#@ import namespace="System.Data" #>
+<#@include file="$(SolutionDir)\Mintcode.TuoTuo.v2.Model\Model_Auto\MintcodeSqlManager.ttinclude"#> 
+<#@include file="$(SolutionDir)\Mintcode.TuoTuo.v2.Model\Model_Auto\TemplateFileManagerV2.1.ttinclude"#> 
+<#@import namespace ="Mintcode.Zeus.Public.Data" #>
+ <#@ import namespace="MySql.Data.MySqlClient" #>
+<#@ output extension=".cs" #>
+ <#
+         //T4模板管理
+          var manager = TemplateFileManager.Create(this);
+	      manager.CanOverrideExistingFile=true;   
+          //数据库管理
+	      T4HelperTool t4 = new T4HelperTool();
+          //MySql的操作
+          T4HelperTool.IDbfactory sqlDbfactory= new T4HelperTool.MySqlDbfactory(t4.CreateDbBase(Host.ResolvePath(@"../../Mintcode.TuoTuo.v2.Owin/Web.config"),"strTuotuomySql"));
+          IList<T4HelperTool.DbTable> list = t4.GetTableStructFromDatabase( sqlDbfactory,"tuotuo.v2");
+
+        foreach(T4HelperTool.DbTable entity in list)
+	        {    
+		          manager.StartNewFile(entity.TableName.ToUpper()+"_BLL.cs");
+
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Mintcode.TuoTuo.v2.Model;
+namespace Mintcode.TuoTuo.v2.BLL
+{
+    public partial class <#= entity.TableName.ToUpper() #>_BLL:BLLBase<<#= entity.TableName.ToUpper() #>>
+    {
+			public <#= entity.TableName.ToUpper() #>_BLL():base("strTuotuomySql")
+			{
+				
+			}
+    }
+}
+
+
+
+	<# 
+
+	     manager.EndBlock();
+}
+	manager.Process(true); 
+	 #>

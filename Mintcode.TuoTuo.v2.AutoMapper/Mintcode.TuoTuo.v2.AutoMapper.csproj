@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6CA75E1A-AA6D-4B52-9182-1C4FA30E1E98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.AutoMapper</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.AutoMapper</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Profiles\BackLogProfile.cs" />
+    <Compile Include="Profiles\ProjectProfile.cs" />
+    <Compile Include="Profiles\ScrumProfile.cs" />
+    <Compile Include="Profiles\TaskProfile.cs" />
+    <Compile Include="Profiles\TeamProfile.cs" />
+    <Compile Include="Profiles\TimeSheetProfile.cs" />
+    <Compile Include="Profiles\UserProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Common\Mintcode.TuoTuo.v2.Common.csproj">
+      <Project>{2c804388-3ca5-4c30-8c77-dbc60ad1434b}</Project>
+      <Name>Mintcode.TuoTuo.v2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Infrastructure\Mintcode.TuoTuo.v2.Infrastructure.csproj">
+      <Project>{2847817d-b850-47fa-8722-3b7d8a5594d7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.IRepository\Mintcode.TuoTuo.v2.IRepository.csproj">
+      <Project>{04da3812-7c40-4bd0-aef6-b6c27f7b1da7}</Project>
+      <Name>Mintcode.TuoTuo.v2.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Model\Mintcode.TuoTuo.v2.Model.csproj">
+      <Project>{01f41897-d330-4195-8e80-25b18b8eadc7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Webapi\Mintcode.TuoTuo.v2.Webapi.csproj">
+      <Project>{51a250fe-e7b6-4b4d-8e3e-a37c7bdc9397}</Project>
+      <Name>Mintcode.TuoTuo.v2.Webapi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.Zeus.Public.Data\Mintcode.Zeus.Public.Data.csproj">
+      <Project>{46a471c9-4abe-4897-8234-352a698838e3}</Project>
+      <Name>Mintcode.Zeus.Public.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

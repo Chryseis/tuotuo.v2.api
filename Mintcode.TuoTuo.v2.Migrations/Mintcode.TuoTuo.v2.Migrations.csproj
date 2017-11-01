@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A7E61B1-B26E-498A-8439-5190A49ECBA9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.Migrations</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.Migrations</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentMigrator, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentMigrator.1.6.2\lib\40\FluentMigrator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\M0000_EmptyDatabase.cs" />
+    <Compile Include="Base\M0014_CreateTable_Release.cs" />
+    <Compile Include="Base\M0001_CreateTable_User.cs" />
+    <Compile Include="Base\M0002_CreateTable_Role.cs" />
+    <Compile Include="Base\M0003_CreateTable_Team.cs" />
+    <Compile Include="Base\M0004_CreateTable_TeamMember.cs" />
+    <Compile Include="Base\M0005_CreateTable_RoleAlias.cs" />
+    <Compile Include="Base\M0006_CreateTable_ThirdParty.cs" />
+    <Compile Include="Base\M0008_CreateTable_Project.cs" />
+    <Compile Include="Base\M0009_CreateTable_ProjectMember.cs" />
+    <Compile Include="Base\M0015_CreateTable_ReleaseSprint.cs" />
+    <Compile Include="Base\M0016_CreateTable_Backlog.cs" />
+    <Compile Include="Base\M0017_CreateTable_TimeSheet.cs" />
+    <Compile Include="Base\M0018_CreateTable_TimeSheetTask.cs" />
+    <Compile Include="Patches\M0007_AlterTable_TeamMember_AddFieldTags.cs" />
+    <Compile Include="Patches\M0010_AlterTable_Project_ModifyFieldAvatar.cs" />
+    <Compile Include="Patches\M0011_AlterTable_TeamMember_AddFiled_UserNameAndUserMail.cs" />
+    <Compile Include="Patches\M0012_AlterTable_Team_AddFiled_Summary_Avatar.cs" />
+    <Compile Include="Patches\M0013_AlterTable_ThirdParty_RemoveFiled_Status.cs" />
+    <Compile Include="Patches\M0019_AlterTable_ReleaseSprint_AddFiled_NO.cs" />
+    <Compile Include="Patches\M0020_AlterTable_User_AddFiled_Avatar.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

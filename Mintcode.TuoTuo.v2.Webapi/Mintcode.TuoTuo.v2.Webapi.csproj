@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{51A250FE-E7B6-4B4D-8E3E-A37C7BDC9397}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.Webapi</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.Webapi</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.4.3.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.3.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.3.0\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attribute\CompressContentAttribute.cs" />
+    <Compile Include="Content\CompressContent.cs" />
+    <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\BacklogController.cs" />
+    <Compile Include="Controllers\ControllerBase\BaseController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ScrumController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TimeSheetController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\GlobalActionFilter.cs" />
+    <Compile Include="Filters\GlobalExceptionFilter.cs" />
+    <Compile Include="Filters\GlobalValidateErrorFilter.cs" />
+    <Compile Include="MediaTypeFormatter\Protobuf\ProtobufFormatter.cs" />
+    <Compile Include="Models\Attachment\ResUpload.cs" />
+    <Compile Include="Models\Backlog\ReqCreateBacklog.cs" />
+    <Compile Include="Models\Backlog\ReqDeleteBacklog.cs" />
+    <Compile Include="Models\Backlog\ReqListBacklog.cs" />
+    <Compile Include="Models\Backlog\ReqListBacklogAndTask.cs" />
+    <Compile Include="Models\Backlog\ReqModifyBacklog.cs" />
+    <Compile Include="Models\Backlog\ReqSetBacklogSprint.cs" />
+    <Compile Include="Models\Backlog\ReqViewBacklog.cs" />
+    <Compile Include="Models\Backlog\ResCreateBacklog.cs" />
+    <Compile Include="Models\Backlog\ResListBacklog.cs" />
+    <Compile Include="Models\Backlog\ResListBacklogAndTask.cs" />
+    <Compile Include="Models\Backlog\ResViewBacklog.cs" />
+    <Compile Include="Models\MessageBase\RequestBaseModel.cs" />
+    <Compile Include="Models\MessageBase\ResponseBaseModel.cs" />
+    <Compile Include="Models\Project\ReqChangeMemberRole.cs" />
+    <Compile Include="Models\Project\ReqChangeMemberTags.cs" />
+    <Compile Include="Models\Project\ReqExitProject.cs" />
+    <Compile Include="Models\Project\ReqInviteMember.cs" />
+    <Compile Include="Models\Project\ReqModifyProject.cs" />
+    <Compile Include="Models\Project\ReqRemoveMember.cs" />
+    <Compile Include="Models\Project\ReqViewProjectAvatar.cs" />
+    <Compile Include="Models\Project\ReqSearchProjectByMail.cs" />
+    <Compile Include="Models\Project\ReqTransformProject.cs" />
+    <Compile Include="Models\Project\ReqViewProject.cs" />
+    <Compile Include="Models\Project\ResCreateProject.cs" />
+    <Compile Include="Models\Project\ResInviteProject.cs" />
+    <Compile Include="Models\Project\ResViewProject.cs" />
+    <Compile Include="Models\Scrum\ReqCreateRelease.cs" />
+    <Compile Include="Models\Scrum\ReqCreateSprint.cs" />
+    <Compile Include="Models\Scrum\ReqDeleteRelease.cs" />
+    <Compile Include="Models\Scrum\ReqDeleteSprint.cs" />
+    <Compile Include="Models\Scrum\ReqEditSprint.cs" />
+    <Compile Include="Models\Scrum\ReqListSprint.cs" />
+    <Compile Include="Models\Scrum\ReqSetCurrentSprint.cs" />
+    <Compile Include="Models\Scrum\ReqViewRelease.cs" />
+    <Compile Include="Models\Scrum\ResCreateRelease.cs" />
+    <Compile Include="Models\Scrum\ResCreateSprint.cs" />
+    <Compile Include="Models\Scrum\ResCurrentReleaseAndSprint.cs" />
+    <Compile Include="Models\Scrum\ResListRelease.cs" />
+    <Compile Include="Models\Scrum\ResListSprint.cs" />
+    <Compile Include="Models\Scrum\ResReleaseAndSprintList.cs" />
+    <Compile Include="Models\Scrum\ResViewRelease.cs" />
+    <Compile Include="Models\Task\ReqCreateTask.cs" />
+    <Compile Include="Models\Task\ReqListTask.cs" />
+    <Compile Include="Models\Task\ReqModifyTask.cs" />
+    <Compile Include="Models\Task\ReqModifyTaskState.cs" />
+    <Compile Include="Models\Task\ReqMyTask.cs" />
+    <Compile Include="Models\Task\ReqViewTask.cs" />
+    <Compile Include="Models\Task\ResListTask.cs" />
+    <Compile Include="Models\Task\ResListTaskLog.cs" />
+    <Compile Include="Models\Task\ResViewTask.cs" />
+    <Compile Include="Models\Team\ReqCreateTeam.cs" />
+    <Compile Include="Models\Team\ReqDeleteTeam.cs" />
+    <Compile Include="Models\Team\ReqExitTeam.cs" />
+    <Compile Include="Models\Team\ReqModifyTeam.cs" />
+    <Compile Include="Models\Team\ReqSearchTeam.cs" />
+    <Compile Include="Models\Team\ReqTransformTeam.cs" />
+    <Compile Include="Models\Team\ReqViewTeam.cs" />
+    <Compile Include="Models\Team\ReqViewTeamAvatar.cs" />
+    <Compile Include="Models\Team\ResInviteTeam.cs" />
+    <Compile Include="Models\Team\ResMyTeamList.cs" />
+    <Compile Include="Models\Team\ResMyTeamMemberList.cs" />
+    <Compile Include="Models\Team\ResSearchTeam.cs" />
+    <Compile Include="Models\Team\ResViewTeam.cs" />
+    <Compile Include="Models\TimeSheet\ReqCreateTimeSheetTasks.cs" />
+    <Compile Include="Models\TimeSheet\ReqDeleteTimeSheetTask.cs" />
+    <Compile Include="Models\TimeSheet\ReqGetTimeSheetCheckList.cs" />
+    <Compile Include="Models\TimeSheet\ReqModifyTimeSheetTask.cs" />
+    <Compile Include="Models\TimeSheet\ReqMyTimeSheet.cs" />
+    <Compile Include="Models\TimeSheet\ReqApproveTimeSheet.cs" />
+    <Compile Include="Models\TimeSheet\ReqQueryReportTimeSheetList.cs" />
+    <Compile Include="Models\TimeSheet\ReqSubmitTimeSheet.cs" />
+    <Compile Include="Models\TimeSheet\ResCreateTimeSheetTasks.cs" />
+    <Compile Include="Models\TimeSheet\ResGetQueryParams.cs" />
+    <Compile Include="Models\TimeSheet\ResGetTimeSheetCheckList.cs" />
+    <Compile Include="Models\TimeSheet\ResMyTimeSheet.cs" />
+    <Compile Include="Models\TimeSheet\ResQueryReportTimeSheetList.cs" />
+    <Compile Include="Models\User\ReqBindUser.cs" />
+    <Compile Include="Models\Project\ReqCreateProject.cs" />
+    <Compile Include="Models\Project\ReqDeleteProject.cs" />
+    <Compile Include="Models\User\ReqBindUserV2.cs" />
+    <Compile Include="Models\User\ReqChangePassword.cs" />
+    <Compile Include="Models\User\ReqGetUserAvatar.cs" />
+    <Compile Include="Models\User\ReqGetUserInfoModel.cs" />
+    <Compile Include="Models\User\ReqModifyMyUserInfo.cs" />
+    <Compile Include="Models\User\ReqResetPassword.cs" />
+    <Compile Include="Models\User\ReqSendAuthMail.cs" />
+    <Compile Include="Models\User\ReqUserModel.cs" />
+    <Compile Include="Models\User\ReqUserRegister.cs" />
+    <Compile Include="Models\User\ReqVerifyAuthCode.cs" />
+    <Compile Include="Models\User\ReqVerifyEmailAuthCode.cs" />
+    <Compile Include="Models\Project\ResMyProjectList.cs" />
+    <Compile Include="Models\User\ResMyUserInfo.cs" />
+    <Compile Include="Models\User\ResSendAuthMail.cs" />
+    <Compile Include="Models\User\ResUserModel.cs" />
+    <Compile Include="Models\User\ResVerifyEmailAuthCode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\FileResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Common\Mintcode.TuoTuo.v2.Common.csproj">
+      <Project>{2c804388-3ca5-4c30-8c77-dbc60ad1434b}</Project>
+      <Name>Mintcode.TuoTuo.v2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Infrastructure\Mintcode.TuoTuo.v2.Infrastructure.csproj">
+      <Project>{2847817d-b850-47fa-8722-3b7d8a5594d7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.IRepository\Mintcode.TuoTuo.v2.IRepository.csproj">
+      <Project>{04da3812-7c40-4bd0-aef6-b6c27f7b1da7}</Project>
+      <Name>Mintcode.TuoTuo.v2.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Model\Mintcode.TuoTuo.v2.Model.csproj">
+      <Project>{01f41897-d330-4195-8e80-25b18b8eadc7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Repository\Mintcode.TuoTuo.v2.Repository.csproj">
+      <Project>{f449e709-5a22-4aa8-9201-49d143c28712}</Project>
+      <Name>Mintcode.TuoTuo.v2.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Webapi.Identity\Mintcode.TuoTuo.v2.Webapi.Identity.csproj">
+      <Project>{5721a6e7-47e3-4844-adc4-c4f9dfee2ea0}</Project>
+      <Name>Mintcode.TuoTuo.v2.Webapi.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.Zeus.Public.Data\Mintcode.Zeus.Public.Data.csproj">
+      <Project>{46a471c9-4abe-4897-8234-352a698838e3}</Project>
+      <Name>Mintcode.Zeus.Public.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

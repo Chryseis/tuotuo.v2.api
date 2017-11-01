@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{712D8F6A-9160-4F41-8C31-7665758EA348}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.FluentValidation</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.FluentValidation</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.3.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.4.1\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi, Version=6.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.WebApi.6.4.0\lib\Net45\FluentValidation.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ValidateHelper.cs" />
+    <Compile Include="DependencyResolverValidatorFactory.cs" />
+    <Compile Include="FluentValidationConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidatorModule.cs" />
+    <Compile Include="Validator\Backlog\CreateBacklogValidator.cs" />
+    <Compile Include="Validator\Backlog\DeleteBacklogValidator.cs" />
+    <Compile Include="Validator\Backlog\ListBacklogAndTaskValidator.cs" />
+    <Compile Include="Validator\Backlog\ModifyBacklogValidator.cs" />
+    <Compile Include="Validator\Backlog\ViewBacklogValidator.cs" />
+    <Compile Include="Validator\Project\ChangeMemberRoleValidator.cs" />
+    <Compile Include="Validator\Project\ChangeMemberTagsValidator.cs" />
+    <Compile Include="Validator\Project\CreateProjectValidator.cs" />
+    <Compile Include="Validator\Project\InviteMemberValidator.cs" />
+    <Compile Include="Validator\Project\ModifyProjectValidator.cs" />
+    <Compile Include="Validator\Project\RemoveMemberValidator.cs" />
+    <Compile Include="Validator\Project\SearchProjectByMailValidator.cs" />
+    <Compile Include="Validator\Project\TransformProjectValidator.cs" />
+    <Compile Include="Validator\Project\ViewProjectAvatarValidator.cs" />
+    <Compile Include="Validator\Scrum\CreateReleaseValidator.cs" />
+    <Compile Include="Validator\Scrum\CreateSprintValidator.cs" />
+    <Compile Include="Validator\Scrum\DeleteSprintValidator.cs" />
+    <Compile Include="Validator\Scrum\EditSprintValidator.cs" />
+    <Compile Include="Validator\Scrum\SetCurrentSprintValidator.cs" />
+    <Compile Include="Validator\Scrum\ViewReleaseValidator.cs" />
+    <Compile Include="Validator\Task\MyTaskValidator.cs" />
+    <Compile Include="Validator\TimeSheet\CreateTimeSheetTasksValidator.cs" />
+    <Compile Include="Validator\TimeSheet\DeleteTimeSheetTaskValidator.cs" />
+    <Compile Include="Validator\TimeSheet\ModifyTimeSheetTaskValidator.cs" />
+    <Compile Include="Validator\TimeSheet\SubmitTimeSheetValidator.cs" />
+    <Compile Include="Validator\Task\CreateTaskValidator.cs" />
+    <Compile Include="Validator\Task\ModifyTaskValidator.cs" />
+    <Compile Include="Validator\Task\ViewTaskValidator.cs" />
+    <Compile Include="Validator\Team\CreateTeamValidator.cs" />
+    <Compile Include="Validator\Team\ModifyTeamValidator.cs" />
+    <Compile Include="Validator\Team\TransformTeamValidator.cs" />
+    <Compile Include="Validator\TimeSheet\ApproveTimeSheetValidator.cs" />
+    <Compile Include="Validator\User\BindUserV2Validator.cs" />
+    <Compile Include="Validator\User\BindUserValidator.cs" />
+    <Compile Include="Validator\User\ChangePasswordValidator.cs" />
+    <Compile Include="Validator\User\GetUserAvatarValidator.cs" />
+    <Compile Include="Validator\User\GetUserInfoModelValidator.cs" />
+    <Compile Include="Validator\User\ModifyMyUserInfoValidator.cs" />
+    <Compile Include="Validator\User\ResetPasswordValidator.cs" />
+    <Compile Include="Validator\User\SendAuthMailValidator.cs" />
+    <Compile Include="Validator\User\UserRegisterValidator.cs" />
+    <Compile Include="Validator\User\VerifyEmailAuthCodeValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Common\Mintcode.TuoTuo.v2.Common.csproj">
+      <Project>{2c804388-3ca5-4c30-8c77-dbc60ad1434b}</Project>
+      <Name>Mintcode.TuoTuo.v2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Infrastructure\Mintcode.TuoTuo.v2.Infrastructure.csproj">
+      <Project>{2847817d-b850-47fa-8722-3b7d8a5594d7}</Project>
+      <Name>Mintcode.TuoTuo.v2.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mintcode.TuoTuo.v2.Webapi\Mintcode.TuoTuo.v2.Webapi.csproj">
+      <Project>{51a250fe-e7b6-4b4d-8e3e-a37c7bdc9397}</Project>
+      <Name>Mintcode.TuoTuo.v2.Webapi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

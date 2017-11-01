@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{916A5E97-87BE-4C52-B000-CD050B979F0B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mintcode.TuoTuo.v2.DFS</RootNamespace>
+    <AssemblyName>Mintcode.TuoTuo.v2.DFS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Connection.cs" />
+    <Compile Include="Common\Consts.cs" />
+    <Compile Include="Common\FDFSConfig.cs" />
+    <Compile Include="Common\FDFSException.cs" />
+    <Compile Include="Common\FDFSHeader.cs" />
+    <Compile Include="Common\FDFSRequest.cs" />
+    <Compile Include="Common\Pool.cs" />
+    <Compile Include="Common\StorageNode.cs" />
+    <Compile Include="Common\Util.cs" />
+    <Compile Include="Config\FastDFSConfig.cs" />
+    <Compile Include="Config\FastDfsConfigurationSectionHandler.cs" />
+    <Compile Include="Config\FastDfsManager.cs" />
+    <Compile Include="Config\FastDFSServer.cs" />
+    <Compile Include="ConnectionManager.cs" />
+    <Compile Include="FastDFSClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\APPEND_FILE.cs" />
+    <Compile Include="Storage\DELETE_FILE.cs" />
+    <Compile Include="Storage\DOWNLOAD_FILE.cs" />
+    <Compile Include="Storage\FDFSFileInfo.cs" />
+    <Compile Include="Storage\GET_METADATA.cs" />
+    <Compile Include="Storage\QUERY_FILE_INFO.cs" />
+    <Compile Include="Storage\SET_METADATA.cs" />
+    <Compile Include="Storage\UPLOAD_APPEND_FILE.cs" />
+    <Compile Include="Storage\UPLOAD_FILE.cs" />
+    <Compile Include="Storage\UPLOAD_SLAVE_FILE.cs" />
+    <Compile Include="Tracker\LIST_ALL_GROUPS.cs" />
+    <Compile Include="Tracker\LIST_ONE_GROUP.cs" />
+    <Compile Include="Tracker\LIST_STORAGE.cs" />
+    <Compile Include="Tracker\QUERY_FETCH_ALL.cs" />
+    <Compile Include="Tracker\QUERY_FETCH_ONE.cs" />
+    <Compile Include="Tracker\QUERY_STORE_WITHOUT_GROUP_ALL.cs" />
+    <Compile Include="Tracker\QUERY_STORE_WITHOUT_GROUP_ONE.cs" />
+    <Compile Include="Tracker\QUERY_STORE_WITH_GROUP_ALL.cs" />
+    <Compile Include="Tracker\QUERY_STORE_WITH_GROUP_ONE.cs" />
+    <Compile Include="Tracker\QUERY_UPDATE.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,407 @@
+﻿<#@ assembly name="System.Data.DataSetExtensions.dll" #>
+<#@ assembly name="$(ProjectDir)\bin\Debug\Mintcode.Zeus.Public.Data.dll" #> 
+<#@ assembly name="$(ProjectDir)\bin\Debug\System.Configuration.dll" #> 
+<#@assembly name="$(ProjectDir)\bin\Debug\MySql.Data.dll" #>
+<#@assembly name="$(ProjectDir)\bin\Debug\Dapper.dll" #>
+<#@ import namespace="System.Configuration"#> 
+<#@ import namespace="System" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Dapper"#>
+
+<#+
+  
+     /// <summary>
+    /// 转换表结构
+    /// </summary>
+    public class T4HelperTool{
+
+
+      #region 数据库操作
+
+         /// <summary>
+         /// MYSQL数据库操作
+         /// </summary>
+         public class MySqlDbfactory : IDbfactory
+         {
+             IDbConnection _db;
+
+             public MySqlDbfactory(IDbConnection db)
+             {
+                 this._db = db;
+             }
+
+             /// <summary>
+             /// MYSQL获得表结构
+             /// </summary>
+             /// <param name="dataSource"></param>
+             /// <returns></returns>
+             public IList<DbTable> GetDataTable(string dataSource)
+             {
+ 
+                var createSql = string.Format(@"
+                               SELECT
+                                    TABLE_NAME    AS  `TableName`,
+                                    TABLE_TYPE    AS  `TableType`,
+                                    TABLE_COMMENT As   TableComment,
+                                    TABLE_SCHEMA  AS   SchemaName,
+                                    ENGINE        AS  `TableEngine`,
+                                    TABLE_COLLATION AS `TableCollation`
+                                FROM
+                                    information_schema.tables
+                                WHERE
+                                    table_schema = '{0}'
+                                ORDER BY
+                                    table_name DESC",dataSource);
+
+              return this._db.Query<DbTable>(createSql,null,null,false,null,null).ToList();
+
+             }
+
+             /// <summary>
+             /// MYSQL获得字段结构
+             /// </summary>
+             /// <param name="dataTable"></param>
+             /// <returns></returns>
+             public IList<DbColumn> GetDataColumn(string dataTable,string dataSource)
+             {
+                var createSql = string.Format(@"
+                    SELECT
+                    COLUMN_NAME AS ColumnName,
+                    data_type AS ColumnType,
+                    character_maximum_length AS ByteLength,
+                    NUMERIC_PRECISION AS NumLength,
+                    NUMERIC_SCALE AS Scale,
+                    CASE WHEN IS_NULLABLE = 'yes'
+                    THEN 1 ELSE 0 END AS IsNullable,
+                    CASE WHEN EXTRA='auto_increment'
+                    THEN 1 ELSE 0 END AS IsIdentity,
+                    CASE WHEN COLUMN_KEY = 'pri'
+				    THEN 1 ELSE 0 END AS IsPrimaryKey,
+                    COLUMN_DEFAULT AS ColumnDefault,
+                    COLUMN_COMMENT AS ColumnComment
+                    FROM
+                    information_schema.`COLUMNS`
+                    WHERE
+                    TABLE_NAME = '{0}' and table_schema='{1}'",dataTable,dataSource);
+
+                 return this._db.Query<DbColumn>(createSql,null,null,false,null,null).ToList();
+             }
+
+         }
+
+       
+         #endregion
+
+
+          /// <summary>
+         ///  获得连接
+         /// </summary>
+         /// <param name="dbfactory"></param>
+         /// <param name="dataSource"></param>
+         /// <returns></returns>
+        public IDbConnection CreateDbBase(string path,string configKey)
+        {
+            IDbConnection BbConnecttion =  null;
+
+            var map = new ExeConfigurationFileMap { ExeConfigFilename = path };
+			var config = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(map,ConfigurationUserLevel.None);
+			ConnectionStringSettings connStr=config.ConnectionStrings.ConnectionStrings[configKey];
+            var factory = DbProviderFactories.GetFactory(connStr.ProviderName);
+            var result = factory.CreateConnection();
+            result.ConnectionString = connStr.ConnectionString;
+            BbConnecttion = result;
+
+            BbConnecttion.Open();
+            return BbConnecttion;
+        }
+
+		#region T4获取表结构实现方法
+
+         /// <summary>
+         /// 从数据库获取表结构
+         /// </summary>
+         /// <param name="dbfactory"></param>
+         /// <param name="dataSource"></param>
+         /// <returns></returns>
+         public IList<DbTable> GetTableStructFromDatabase(IDbfactory dbfactory,string dataSource)
+         {
+             var dbtableList = new List<DbTable>();
+             dbtableList = dbfactory.GetDataTable(dataSource).ToList();
+             foreach (DbTable table in dbtableList)
+             {
+                 table.Column = dbfactory.GetDataColumn(table.TableName,dataSource);
+             }
+             return dbtableList;
+         }
+
+          /// <summary>
+         /// 数据库操作接口
+         /// </summary>
+         public interface IDbfactory
+         {
+             IList<DbTable> GetDataTable(string dataSource);
+
+             IList<DbColumn> GetDataColumn(string dataTable,string dataSource);
+
+         }
+         
+         #endregion
+
+       
+
+         #region 表结构和字段的结构
+
+        /// <summary>
+        /// 表的结构
+        /// </summary>
+        public  class DbTable
+        {
+            /// <summary>
+            /// 表名称
+            /// </summary>
+            public string TableName { get; set; }
+
+            /// <summary>
+            /// 表的架构
+            /// </summary>
+            public string SchemaName { get; set; }
+
+            /// <summary>
+            /// 表类型
+            /// </summary>
+            public string TableType { get; set; }
+
+            /// <summary>
+            /// 引擎
+            /// </summary>
+            public string TableEngine { get; set; }
+
+            /// <summary>
+            /// 字符集
+            /// </summary>
+            public string TableCollation { get; set; }
+
+            /// <summary>
+            /// 备注
+            /// </summary>
+            public string TableComment { get; set; }
+ 
+            /// <summary>
+            /// 表中所有的列
+            /// </summary>
+            public IList<DbColumn> Column { get; set; }
+
+        }
+
+        /// <summary>
+        /// 列的结构
+        /// </summary>
+        public  class DbColumn
+        {
+
+            /// <summary>
+            /// 列名
+            /// </summary>
+            public string ColumnName { get; set; }
+
+            /// <summary>
+            /// 字段类型
+            /// </summary>
+            public string ColumnType { get; set; }
+
+            /// <summary>
+            /// 数据库类型对应的C#类型
+            /// </summary>
+            public Type CommonType
+            {
+                get
+                {
+                    return SqlDbTypeMap.MapCommonType(ColumnType,ByteLength);
+                }
+            }
+
+             /// <summary>
+            /// 是否允许空
+            /// </summary>
+            public bool IsNullable { get; set; }
+
+            /// <summary>
+            /// 数据库类型对应的C#类型（字符串）
+            /// </summary>
+            public string CSharpType
+            {
+                get
+                {                 
+                    return ( CommonType.IsValueType==true && IsNullable== true)?SqlDbTypeMap.MapCsharpType(ColumnType,ByteLength)+"?":SqlDbTypeMap.MapCsharpType(ColumnType,ByteLength);
+                }
+            }
+
+
+        
+
+            /// <summary>
+            /// 字节长度
+            /// </summary>
+            public long ByteLength { get; set; }
+
+            /// <summary>
+            /// 数字长度
+            /// </summary>
+            public long NumLength { get; set; }
+
+            /// <summary>
+            /// 小数位
+            /// </summary>
+            public int Scale { get; set; }
+
+         
+
+            /// <summary>
+            /// 是否自增列
+            /// </summary>
+            public bool IsIdentity { get; set; }
+
+            /// <summary>
+            /// 是否主键
+            /// </summary>
+            public bool IsPrimaryKey { get; set; }
+
+            /// <summary>
+            /// 默认值
+            /// </summary>
+            public string ColumnDefault { get; set; } 
+  
+            /// <summary>
+            /// 备注
+            /// </summary>
+            public string ColumnComment { get; set; }
+
+        }
+
+           #region 表结构和字段的结构 ：①DBType帮助类
+
+        public class SqlDbTypeMap
+        {
+
+            /// <summary>
+            /// 映射出字段的名称
+            /// </summary>
+            /// <param name="dbtype"></param>
+            /// <returns></returns>
+            public static string MapCsharpType(string dbtype,long length)
+            {
+                if (string.IsNullOrEmpty(dbtype)) return dbtype;
+                dbtype = dbtype.ToLower();
+                string csharpType = "object";
+                switch (dbtype)
+                {
+                    case "bigint": csharpType = "long"; break;
+                    case "binary": csharpType = "byte[]"; break;
+                    case "bit": csharpType = "bool"; break;
+                    case "char": csharpType = "string"; break;
+                    case "date": csharpType = "DateTime"; break;
+                    case "datetime": csharpType = "DateTime"; break;
+                    case "datetime2": csharpType = "DateTime"; break;
+                    case "datetimeoffset": csharpType = "DateTimeOffset"; break;
+                    case "decimal": csharpType = "decimal"; break;
+                    case "float": csharpType = "float"; break;
+					case "double": csharpType = "double"; break;
+                    case "image": csharpType = "byte[]"; break;
+                    case "int": csharpType = "int"; break;
+                    case "money": csharpType = "decimal"; break;
+                    case "nchar": csharpType = "string"; break;
+                    case "ntext": csharpType = "string"; break;
+                    case "longtext": csharpType = "string"; break;
+                    case "numeric": csharpType = "decimal"; break;
+                    case "nvarchar": csharpType = "string"; break;
+                    case "real": csharpType = "Single"; break;
+                    case "smalldatetime": csharpType = "DateTime"; break;
+                    case "smallint": csharpType = "short"; break;
+                    case "smallmoney": csharpType = "decimal"; break;
+                    case "sql_variant": csharpType = "object"; break;
+                    case "sysname": csharpType = "object"; break;
+                    case "text": csharpType = "string"; break;
+                    case "time": csharpType = "TimeSpan"; break;
+                    case "timestamp": csharpType = "byte[]"; break;
+                    case "tinyint": csharpType = "byte"; break;
+                    case "uniqueidentifier": csharpType = "Guid"; break;
+                    case "varbinary": csharpType = "byte[]"; break;
+                    case "varchar": csharpType = "string"; break;
+                    case "xml": csharpType = "string"; break;
+                    default: csharpType = "object"; break;
+                }
+                //对于char(36)GUID类型进行特殊处理
+                if(dbtype == "char" && length==36)
+                {
+                     csharpType = "Guid";
+                }
+                return csharpType;
+            }
+
+            /// <summary>
+            /// 映射出字段的类型
+            /// </summary>
+            /// <param name="dbtype"></param>
+            /// <returns></returns>
+            public static Type MapCommonType(string dbtype,long length)
+            {
+                if (string.IsNullOrEmpty(dbtype)) return Type.Missing.GetType();
+                dbtype = dbtype.ToLower();
+                Type commonType = typeof(object);
+                switch (dbtype)
+                {
+                    case "bigint": commonType = typeof(long); break;
+                    case "binary": commonType = typeof(byte[]); break;
+                    case "bit": commonType = typeof(bool); break;
+                    case "char": commonType = typeof(string); break;
+                    case "date": commonType = typeof(DateTime); break;
+                    case "datetime": commonType = typeof(DateTime); break;
+                    case "datetime2": commonType = typeof(DateTime); break;
+                    case "datetimeoffset": commonType = typeof(DateTimeOffset); break;
+                    case "decimal": commonType = typeof(decimal); break;
+                    case "float": commonType = typeof(float); break;
+					case "double": commonType = typeof(double); break;
+                    case "image": commonType = typeof(byte[]); break;
+                    case "int": commonType = typeof(int); break;
+                    case "money": commonType = typeof(decimal); break;
+                    case "nchar": commonType = typeof(string); break;
+                    case "ntext": commonType = typeof(string); break;
+                    case "longtext": commonType = typeof(string); break;
+                    case "numeric": commonType = typeof(decimal); break;
+                    case "nvarchar": commonType = typeof(string); break;
+                    case "real": commonType = typeof(Single); break;
+                    case "smalldatetime": commonType = typeof(DateTime); break;
+                    case "smallint": commonType = typeof(short); break;
+                    case "smallmoney": commonType = typeof(decimal); break;
+                    case "sql_variant": commonType = typeof(object); break;
+                    case "sysname": commonType = typeof(object); break;
+                    case "text": commonType = typeof(string); break;
+                    case "time": commonType = typeof(TimeSpan); break;
+                    case "timestamp": commonType = typeof(byte[]); break;
+                    case "tinyint": commonType = typeof(byte); break;
+                    case "uniqueidentifier": commonType = typeof(Guid); break;
+                    case "varbinary": commonType = typeof(byte[]); break;
+                    case "varchar": commonType = typeof(string); break;
+                    case "xml": commonType = typeof(string); break;
+                    default: commonType = typeof(object); break;
+                }
+                   //对于char(36)GUID类型进行特殊处理
+                if(dbtype == "char" && length==36)
+                {
+                    commonType = typeof(Guid);
+                }
+                return commonType;
+            }
+
+        }
+
+        #endregion
+
+        #endregion
+  }
+#>
